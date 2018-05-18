@@ -1,0 +1,23 @@
+{
+  "name": "modulusphp/console",
+  "description": "Console Commands for modulusPHP",
+  "version": "1.0",
+  "license": "MIT",
+  "type": "package",
+  "authors": [
+    {
+      "name": "Donald Pakkies",
+      "email": "donaldpakkies@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ModulusPHP\\Console\\": ""
+    }
+  },
+  "require": {
+    "symfony/console": "v4.0.7",
+    "symfony/process": "^4.0"
+  },
+  "minimum-stability": "stable"
+}
