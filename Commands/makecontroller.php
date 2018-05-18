@@ -44,6 +44,8 @@ class MakeControllerCommand extends Command
     $name = $input->getArgument($this->commandArgumentName);
     $controllerName = ucfirst(strtolower($name));
 
+    $this->checkFolder();
+
     if (substr($controllerName, -10) != 'controller') {
       $controllerName = $controllerName.'Controller';
     }
@@ -89,6 +91,13 @@ class ".$controllerName." extends Controller
     else {
       file_put_contents('app/Http/Controllers/'.str_replace('\\', '/', $auth). $controllerName.'.php', $controller);
       $output->writeln($controllerName.' was successfully created!');
+    }
+  }
+
+  private function checkFolder()
+  {
+    if (is_dir('app/Http/Controllers') === false) {
+      mkdir('app/Http/Controllers', 0777, true);
     }
   }
 }

@@ -45,6 +45,8 @@ class MakeModelCommand extends Command
     $name = $input->getArgument($this->commandArgumentName);
     $modelName = ucfirst(strtolower($name));
 
+    $this->checkFolder();
+
     $model = "<?php
 
 namespace App\Models;
@@ -67,6 +69,13 @@ class ".$modelName." extends Eloquent
     }
     else {
       $output->writeln('Specify model name!');
+    }
+  }
+
+  private function checkFolder()
+  {
+    if (is_dir('app/Models') === false) {
+      mkdir('app/Models', 0777, true);
     }
   }
 }

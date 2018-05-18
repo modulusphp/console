@@ -45,6 +45,8 @@ class MakeMigrationCommand extends Command
     $type = $input->getArgument($this->commandOptionMigration);
     $table = null;
 
+    $this->checkFolder();
+
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (!file_exists($migrationFile)) {
@@ -139,5 +141,12 @@ class '.ucfirst($name).'Migration
 }';
 
     file_put_contents('storage/migrations/'. $name.'.php', $migration);
+  }
+
+  private function checkFolder()
+  {
+    if (is_dir('storage/migrations') === false) {
+      mkdir('storage/migrations', 0777, true);
+    }
   }
 }

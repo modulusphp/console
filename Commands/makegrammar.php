@@ -36,6 +36,8 @@ class MakeGrammarCommand extends Command
     $name = $input->getArgument($this->commandArgumentName);
     $grammarName = ucfirst(strtolower($name));
 
+    $this->checkFolder();
+
     $grammar = '<?php
 
 namespace App\Grammar;
@@ -62,6 +64,13 @@ class '.$grammarName.' extends Grammar implements Fluent
     }
     else {
       $output->writeln('Specify Grammar name!');
+    }
+  }
+
+  private function checkFolder()
+  {
+    if (is_dir('app/Grammar') === false) {
+      mkdir('app/Grammar', 0777, true);
     }
   }
 }

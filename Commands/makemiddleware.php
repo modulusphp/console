@@ -36,6 +36,8 @@ class MakeMiddlewareCommand extends Command
     $name = $input->getArgument($this->commandArgumentName);
     $middlewareName = ucfirst(strtolower($name));
 
+    $this->checkFolder();
+
     if (substr($middlewareName, -10) != 'middleware') {
       $middlewareName = $middlewareName.'Middleware';
     }
@@ -68,6 +70,13 @@ class ".$middlewareName."
     }
     else {
       $output->writeln('Specify Middleware name!');
+    }
+  }
+
+  private function checkFolder()
+  {
+    if (is_dir('app/Http/Middleware') === false) {
+      mkdir('app/Http/Middleware', 0777, true);
     }
   }
 }
