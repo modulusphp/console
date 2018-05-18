@@ -40,8 +40,8 @@ class MakeGrammarCommand extends Command
 
 namespace App\Grammar;
 
-use Flashlight\Touch\Fluent;
-use Flashlight\Touch\Grammar;
+use ModulusPHP\Touch\Fluent;
+use ModulusPHP\Touch\Grammar;
 
 class '.$grammarName.' extends Grammar implements Fluent
 {
