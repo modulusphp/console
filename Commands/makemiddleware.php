@@ -50,12 +50,13 @@ class MakeMiddlewareCommand extends Command
 namespace App\Http\Middleware;
 
 use App\Core\Auth;
+use ModulusPHP\Http\Requests\Request;
 
 class ".$middlewareName."
 {
-  public function handle()
+  public function handle(Request $request)
   {
-
+    return true;
   }
 }";
 
