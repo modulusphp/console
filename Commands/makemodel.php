@@ -51,9 +51,9 @@ class MakeModelCommand extends Command
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use ModulusPHP\Framework\Model;
 
-class ".$modelName." extends Eloquent
+class ".$modelName." extends Model
 {
   
 }";
