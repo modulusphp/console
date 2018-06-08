@@ -31,10 +31,9 @@ class MakeModelCommand extends Command
         InputArgument::REQUIRED,
         $this->commandArgumentDescription
       )
-      ->addOption(
+      ->addArgument(
         $this->commandOptionController,
-        null,
-        InputOption::VALUE_NONE,
+        InputArgument::OPTIONAL,
         $this->commandOptionDescription
       )
     ;
