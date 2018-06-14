@@ -2,6 +2,7 @@
 
 namespace ModulusPHP\Console\Commands;
 
+use App\Core\Debug;
 use App\Models\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -55,9 +56,10 @@ class MigrateCommand extends Command
 
     require 'app/Config/environment.php';
     require 'app/Config/database.php';
+    require 'storage/migrations/0_migrations.php';
 
     if (Capsule::schema()->hasTable('migrations') == false) {
-      if (file_exists('storage/migrations/migrations.php')) {
+      if (file_exists('storage/migrations/0_migrations.php')) {
         call_user_func(['MigrationsMigration', 'up']);
         Debug::info('Successfully created a migrations table');
       }
@@ -66,19 +68,23 @@ class MigrateCommand extends Command
         return $output->writeln('The migrations file is missing');
       }
     }
-    
+
     if ($name == 'all') {
       $succesful = [];
 
       $migrationsDir = 'storage/migrations/';
       foreach(glob($migrationsDir.'*.php') as $migration) {
+        $migrationPath = substr($migration, strrpos($migration, '/') + 1);
+
+        $migration = substr($migration, strrpos($migration, '_') + 1);
         $migration = substr($migration, 0, -4);
-        $className = ucfirst(substr($migration, strrpos($migration, '/') + 1)).'Migration';
+
+        $className = ucfirst(substr($migration, strrpos($migration, '/'))).'Migration';
 
         if ($className != 'MigrationsMigration') {
-          $migrationResponse = $this->migrateAll($migration.'.php', $className, $action);
+          $migrationResponse = $this->migrateAll($migrationPath, $className, $action);
           if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
-            $succesful[] = $className;
+            $succesful[] = $migrationPath;
           }
         }
 
@@ -87,9 +93,9 @@ class MigrateCommand extends Command
       if (count($succesful) == 0) {
         return $output->writeln('Nothing to migrate');
       }
-      
+
       foreach($succesful as $succesfulMigration) {
-        $output->writeln($succesfulMigration.' was successful.');
+        $output->writeln(substr($succesfulMigration, 0, -4).' was successful.');
       }
 
       return;
@@ -98,12 +104,12 @@ class MigrateCommand extends Command
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (file_exists($migrationFile)) {
-      $className = ucfirst($name).'Migration';
+      $className = ucfirst(substr($name, strrpos($name, '_') + 1)).'Migration';
 
       if ($className != 'MigrationsMigration') {
-        $migrationResponse = $this->migrateAll($migrationFile, $className, $action);
+        $migrationResponse = $this->migrateAll($name.'.php', $className, $action);
         if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
-          return $output->writeln($className.' was successful.');
+          return $output->writeln($name.' was successful.');
         }
         else {
           return $output->writeln('Nothing to migrate');
@@ -111,7 +117,7 @@ class MigrateCommand extends Command
       }
     }
     else {
-      $output->writeln('"'.$name.'" migration file does not exist');
+      $output->writeln('"'.$migrationFile.'" migration file does not exist');
     }
   }
 
@@ -119,9 +125,11 @@ class MigrateCommand extends Command
   {
     require_once 'app/Config/environment.php';
     require_once 'app/Config/database.php';
-    require_once $migrationFile;
-    
-    $migration = Migration::where('title', $name)->first();
+    require_once 'storage/migrations/'.$migrationFile;
+
+    $title =  substr($migrationFile, 0, -4);
+
+    $migration = Migration::where('title', $title)->first();
 
     if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
       if ($migration != null) {
@@ -151,9 +159,9 @@ class MigrateCommand extends Command
         }
 
         Migration::create([
-          'title' => $name
+          'title' => $title
         ]);
-    
+
         return 'Migration was successful';
       }
       else {
