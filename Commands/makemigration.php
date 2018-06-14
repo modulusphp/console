@@ -47,7 +47,8 @@ class MakeMigrationCommand extends Command
 
     $this->checkFolder();
 
-    $migrationFile = 'storage/migrations/'.$name.'.php';
+    $date = date('Y_m_d_H_i_s_');
+    $migrationFile = 'storage/migrations/'.$date.$name.'.php';
 
     if (!file_exists($migrationFile)) {
       if ($type != null) {
@@ -72,6 +73,7 @@ class MakeMigrationCommand extends Command
 
   private function addTo($name, $tableName)
   {
+    $date = date('Y_m_d_H_i_s_');
     $migration = '<?php
 
 use Illuminate\Database\Schema\Blueprint;
@@ -104,11 +106,12 @@ class '.ucfirst($name).'Migration
   }
 }';
 
-    file_put_contents('storage/migrations/'. $name.'.php', $migration);
+    file_put_contents('storage/migrations/'. $date.$name.'.php', $migration);
   }
 
   private function addTable($name)
   {
+    $date = date('Y_m_d_H_i_s_');
     $migration = '<?php
 
 use Illuminate\Database\Schema\Blueprint;
@@ -140,7 +143,7 @@ class '.ucfirst($name).'Migration
     }
 }';
 
-    file_put_contents('storage/migrations/'. $name.'.php', $migration);
+    file_put_contents('storage/migrations/'. $date.$name.'.php', $migration);
   }
 
   private function checkFolder()
