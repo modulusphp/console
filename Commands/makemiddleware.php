@@ -54,7 +54,7 @@ use ModulusPHP\Http\Requests\Request;
 
 class ".$middlewareName."
 {
-  public function handle(Request $request)
+  public function handle(Request ". '$request' . ")
   {
     return true;
   }
