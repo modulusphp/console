@@ -56,11 +56,11 @@ class MigrateCommand extends Command
 
     require 'app/Config/environment.php';
     require 'app/Config/database.php';
-    require 'storage/migrations/0_migrations.php';
+    require 'storage/migrations/0000_00_00_00_00_00_migrations.php';
 
     if (Capsule::schema()->hasTable('migrations') == false) {
-      if (file_exists('storage/migrations/0_migrations.php')) {
-        call_user_func(['MigrationsMigration', 'up']);
+      if (file_exists('storage/migrations/0000_00_00_00_00_00_migrations.php')) {
+        call_user_func(['Migrations', 'up']);
         Debug::info('Successfully created a migrations table');
       }
       else {
@@ -75,13 +75,9 @@ class MigrateCommand extends Command
       $migrationsDir = 'storage/migrations/';
       foreach(glob($migrationsDir.'*.php') as $migration) {
         $migrationPath = substr($migration, strrpos($migration, '/') + 1);
+        $className = substr($this->className(substr($migration, strrpos($migration, '/') + 1)), 0, -4);
 
-        $migration = substr($migration, strrpos($migration, '_') + 1);
-        $migration = substr($migration, 0, -4);
-
-        $className = ucfirst(substr($migration, strrpos($migration, '/'))).'Migration';
-
-        if ($className != 'MigrationsMigration') {
+        if ($className != 'Migrations') {
           $migrationResponse = $this->migrateAll($migrationPath, $className, $action);
           if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
             $succesful[] = $migrationPath;
@@ -104,9 +100,9 @@ class MigrateCommand extends Command
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (file_exists($migrationFile)) {
-      $className = ucfirst(substr($name, strrpos($name, '_') + 1)).'Migration';
+      $className = substr($this->className(substr($migration, strrpos($migration, '/') + 1)), 0, -4);
 
-      if ($className != 'MigrationsMigration') {
+      if ($className != 'Migrations') {
         $migrationResponse = $this->migrateAll($name.'.php', $className, $action);
         if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
           return $output->writeln($name.' was successful.');
@@ -119,6 +115,16 @@ class MigrateCommand extends Command
     else {
       $output->writeln('"'.$migrationFile.'" migration file does not exist');
     }
+  }
+
+  private function className($fullname)
+  {
+    $m = explode( '_', $fullname);
+    $date = $m[0] . '_' . $m[1] . '_' . $m[2] . '_' . $m[3] . '_' . $m[4] . '_' . $m[5] . '_';
+
+    $class = str_replace($date, '', $fullname);
+    $class = implode('', array_map('ucfirst', explode('_', $class)));
+    return $class;
   }
 
   private function migrateAll($migrationFile, $name, $action)

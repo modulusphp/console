@@ -42,7 +42,7 @@ class MakeModelCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $modelName = ucfirst(strtolower($name));
+    $modelName = $name;
 
     $this->checkFolder();
 
