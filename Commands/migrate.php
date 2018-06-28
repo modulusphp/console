@@ -100,7 +100,7 @@ class MigrateCommand extends Command
     $migrationFile = 'storage/migrations/'.$name.'.php';
 
     if (file_exists($migrationFile)) {
-      $className = substr($this->className(substr($migration, strrpos($migration, '/') + 1)), 0, -4);
+      $className = $this->className(substr($name, strrpos($name, '/') + 1));
 
       if ($className != 'Migrations') {
         $migrationResponse = $this->migrateAll($name.'.php', $className, $action);
