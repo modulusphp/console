@@ -34,7 +34,7 @@ class MakeGrammarCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $grammarName = ucfirst(strtolower($name));
+    $grammarName = $name;
 
     $this->checkFolder();
 

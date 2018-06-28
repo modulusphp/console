@@ -42,16 +42,9 @@ class MakeControllerCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $controllerName = ucfirst(strtolower($name));
+    $controllerName = $name;
 
     $this->checkFolder();
-
-    if (substr($controllerName, -10) != 'controller') {
-      $controllerName = $controllerName.'Controller';
-    }
-    else {
-      $controllerName = substr($controllerName, 0, strlen($controllerName) - 10).'Controller';
-    }
 
     $isAuth = $input->getArgument($this->commandOptionAuth);
 

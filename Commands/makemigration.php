@@ -50,11 +50,13 @@ class MakeMigrationCommand extends Command
     $date = date('Y_m_d_H_i_s_');
     $migrationFile = 'storage/migrations/'.$date.$name.'.php';
 
+    $class = implode('', array_map('ucfirst', explode('_', $name)));
+
     if (!file_exists($migrationFile)) {
       if ($type != null) {
         if (0 === strpos($type, 'add_to_')) {
           $table = strtolower(str_replace('add_to_', '', $type));
-          $this->addTo($name, $table);
+          $this->addTo($name, $table, $class);
           $output->writeln($name.' was successfully created!');
         }
         else {
@@ -62,7 +64,7 @@ class MakeMigrationCommand extends Command
         }
       }
       else {
-        $this->addTable($name);
+        $this->addTable($name, $class);
         $output->writeln($name.' was successfully created!');
       }
     }
@@ -71,7 +73,7 @@ class MakeMigrationCommand extends Command
     }
   }
 
-  private function addTo($name, $tableName)
+  private function addTo($name, $tableName, $class)
   {
     $date = date('Y_m_d_H_i_s_');
     $migration = '<?php
@@ -79,7 +81,7 @@ class MakeMigrationCommand extends Command
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class '.ucfirst($name).'Migration
+class '.$class.'
 {
   /**
    * Run the migrations.
@@ -109,7 +111,7 @@ class '.ucfirst($name).'Migration
     file_put_contents('storage/migrations/'. $date.$name.'.php', $migration);
   }
 
-  private function addTable($name)
+  private function addTable($name, $class)
   {
     $date = date('Y_m_d_H_i_s_');
     $migration = '<?php
@@ -117,7 +119,7 @@ class '.ucfirst($name).'Migration
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class '.ucfirst($name).'Migration
+class '.$class.'
 {
     /**
      * Run the migrations.

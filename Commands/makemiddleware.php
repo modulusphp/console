@@ -34,16 +34,9 @@ class MakeMiddlewareCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $name = $input->getArgument($this->commandArgumentName);
-    $middlewareName = ucfirst(strtolower($name));
+    $middlewareName = $name;
 
     $this->checkFolder();
-
-    if (substr($middlewareName, -10) != 'middleware') {
-      $middlewareName = $middlewareName.'Middleware';
-    }
-    else {
-      $middlewareName = substr($middlewareName, 0, strlen($middlewareName) - 10).'Middleware';
-    }
 
     $middleware = "<?php
 
