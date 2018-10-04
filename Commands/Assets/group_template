@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Groupables{namespace};
+
+use App{namespace}\{model_name};
+use Modulus\Utility\Groupable;
+
+class {model_name}Group extends Groupable
+{
+  /**
+   * $model
+   *
+   * @var Model
+   */
+  protected $model = {model_name}::class;
+}

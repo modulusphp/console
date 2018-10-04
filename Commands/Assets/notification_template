@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Notifications{namespace};
+
+use Modulus\Utility\Mail;
+use Modulus\Utility\Notification;
+
+class {notification_name} extends Notification
+{
+  /**
+   * __construct
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    //
+  }
+
+  /**
+   * Send notification
+   *
+   * @return
+   */
+  public function notify()
+  {
+    //
+  }
+}

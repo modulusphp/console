@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Events{namespace};
+
+use Modulus\Utility\Event;
+
+class {event_name} extends Event
+{
+  /**
+   * Handle event
+   *
+   * @return void
+   */
+  protected function handle()
+  {
+    //
+  }
+}

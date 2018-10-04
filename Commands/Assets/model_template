@@ -1,0 +1,11 @@
+<?php
+
+namespace App{namespace};
+
+use Modulus\Framework\Mocks\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class {model_name} extends Eloquent
+{
+  use Model;
+}
