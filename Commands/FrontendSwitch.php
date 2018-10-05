@@ -5,6 +5,7 @@ namespace Modulus\Console\Commands;
 use Modulus\Console\ModulusCLI;
 use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -45,7 +46,7 @@ class FrontendSwitch extends Command
     $current  = ModulusCLI::$appdir . 'resources';
     $package  = ModulusCLI::$appdir . 'package.json';
     $lock     = ModulusCLI::$appdir . 'package-lock.json';
-    $front    = __DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'frontend';
+    $front    = Template::assets() . 'frontend';
 
     $helper = $this->getHelper('question');
     $question = new ChoiceQuestion(

@@ -4,6 +4,7 @@ namespace Modulus\Console\Commands;
 
 use Modulus\Console\ModulusCLI;
 use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -48,7 +49,7 @@ class Down extends Command
     $message = $input->getOption('message');
     $allow   = $input->getOption('allow') !== null ? $input->getOption('allow') : "[]";
 
-    $downcontent = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'down_template');
+    $downcontent = Template::asset('down_template');
 
     ModulusCLI::_dir($downLocal);
 

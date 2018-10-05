@@ -2,8 +2,9 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -82,7 +83,7 @@ class MakeQueryMap extends Command
     if (strtolower($type) == 'model') $type = 'map_template';
     if (strtolower($type) == 'group') $type = 'map_group_template';
 
-    $content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . $type);
+    $content = Template::asset($type);
     $content = str_replace('{map_name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 

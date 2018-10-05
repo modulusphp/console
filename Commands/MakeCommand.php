@@ -2,8 +2,9 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -66,7 +67,7 @@ class MakeCommand extends Command
 
     ModulusCLI::_dir($commands);
 
-    $content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'command_template');
+    $content = Template::asset('command_template');
     $content = str_replace('{clean_command_name}', $class, $content);
     $content = str_replace('{command_name}', $raw, $content);
 

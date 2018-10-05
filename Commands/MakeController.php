@@ -2,8 +2,9 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -88,9 +89,9 @@ class MakeController extends Command
     $groups = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Groupables';
     $controllers = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Controllers';
 
-    $modelcontent = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'model_template');
-    $groupcontent = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'group_template');
-    $controllercontent = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . ($this->resource == true ? 'controller_resource_template' : 'controller_template'));
+    $modelcontent = Template::asset('model_template');
+    $groupcontent = Template::asset('group_template');
+    $controllercontent = Template::asset(($this->resource == true ? 'controller_resource_template' : 'controller_template'));
 
     $model = $models . DIRECTORY_SEPARATOR . $name . '.php';
     $group = $groups . DIRECTORY_SEPARATOR . $name . 'Group.php';

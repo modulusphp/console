@@ -2,8 +2,9 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -78,13 +79,13 @@ class MakeMigration extends Command
     ModulusCLI::_dir($migrations);
 
     if ($table != null) {
-      $content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'migration_add_template');
+      $content = Template::asset('migration_add_template');
       $content = str_replace('{migration_class}', $class, $content);
       $content = str_replace('{migration_name}', $name, $content);
       $content = str_replace('{table_name}', $table, $content);
     }
     else {
-      $content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'migration_template');
+      $content = Template::asset('migration_template');
       $content = str_replace('{migration_class}', $class, $content);
       $content = str_replace('{migration_name}', $name, $content);
     }

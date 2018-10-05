@@ -2,8 +2,9 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
+use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -73,7 +74,7 @@ class MakeNotification extends Command
 
     ModulusCLI::_dir($notifications);
 
-    $content = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Assets' . DIRECTORY_SEPARATOR . 'notification_template');
+    $content = Template::asset('notification_template');
     $content = str_replace('{notification_name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 
