@@ -30,7 +30,7 @@ class MakeInterface extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:event' => 'Create a new application interface',
+    'make:interface' => 'Create a new application interface',
     'name' => 'The name of the interface'
   ];
 

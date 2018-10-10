@@ -30,7 +30,7 @@ class MakeTrait extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:event' => 'Create a new application trait',
+    'make:trait' => 'Create a new application trait',
     'name' => 'The name of the trait'
   ];
 

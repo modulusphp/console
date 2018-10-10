@@ -30,7 +30,7 @@ class MakeAbstract extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:event' => 'Create a new application abstract class',
+    'make:abstract' => 'Create a new application abstract class',
     'name' => 'The name of the abstract class'
   ];
 

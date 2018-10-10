@@ -30,7 +30,7 @@ class MakeClass extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:event' => 'Create a new application class',
+    'make:class' => 'Create a new application class',
     'name' => 'The name of the class'
   ];
 
