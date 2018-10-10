@@ -3,6 +3,7 @@
 namespace Modulus\Console;
 
 use Exception;
+use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Application;
 
 class ModulusCLI
@@ -65,6 +66,25 @@ class ModulusCLI
    */
   public static function boot() : object
   {
-    return new Application('modulusPHP Developer Environment');
+    return new Application('modulusPHP Developer Environment', (new ModulusCLI)->getVersion());
+  }
+
+  /**
+   * Get application version from composer file
+   *
+   * @return string
+   */
+  public function getVersion()
+  {
+    if (file_exists('composer.json')) {
+      $composer = json_decode(file_get_contents('composer.json', true));
+      $version  = isset($composer->version) ? $composer->version : '1';
+      $require  = isset($composer->require) ? (array)$composer->require : false;
+
+      if (!$require) return "{$version} (1)";
+      if (isset($require['modulusphp/framework'])) return $version . " ({$require['modulusphp/framework']})";
+    }
+
+    return '1';
   }
 }
