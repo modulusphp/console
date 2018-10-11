@@ -86,7 +86,7 @@ class Migrate extends Command
       }
 
       foreach($succesful as $succesfulMigration) {
-        $output->writeln("<info>" . substr($succesfulMigration, 0, -4).' was successful.</info>');
+        $output->writeln('<info>"' . substr($succesfulMigration, 0, -4).'" was successful.</info>');
       }
 
       return;
@@ -102,7 +102,7 @@ class Migrate extends Command
       if ($className != 'Migrations') {
         $migrationResponse = $this->migrateAll($name.'.php', $className, $action);
         if ($migrationResponse != 0 || $migrationResponse != 'Couldn\'t migrate. See log for more information') {
-          return $output->writeln("<info>" . $name.' was successful.</info>');
+          return $output->writeln('<info>"' . $name.'" was successful.</info>');
         }
         else {
           return $output->writeln('Nothing to migrate');

@@ -43,7 +43,7 @@ class Schedule extends Command
   {
     $scheduler = new Runner();
     $schedule = new Scheduler();
-    $schedule->schedule($scheduler);
+    $schedule->run($scheduler);
     $scheduler->run();
   }
 }
