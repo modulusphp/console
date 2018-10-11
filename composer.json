@@ -1,7 +1,7 @@
 {
   "name": "modulusphp/console",
   "description": "Directives for modulusPHP",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "license": "MIT",
   "type": "package",
   "authors": [
@@ -12,7 +12,8 @@
   ],
   "require": {
     "atlantisphp/console": "^1.0",
-    "modulusphp/scaffolding": "^1.9.1"
+    "modulusphp/scaffolding": "^1.9.1",
+    "peppeocchi/php-cron-scheduler": "^2.3"
   },
   "autoload": {
     "psr-4": {
