@@ -5,6 +5,7 @@ namespace Modulus\Console\Commands;
 use App\Console\Scheduler;
 use GO\Scheduler as Runner;
 use AtlantisPHP\Console\Command;
+use Modulus\System\Scheduler as SystemScheduler;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -44,6 +45,10 @@ class Schedule extends Command
     $scheduler = new Runner();
     $schedule = new Scheduler();
     $schedule->run($scheduler);
+
+    // run application commands
+    (new SystemScheduler)->run($scheduler);
+
     $scheduler->run();
   }
 }
