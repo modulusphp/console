@@ -8,21 +8,21 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeRequest extends Command
+class CraftNotification extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:request {name}';
+  protected $signature = 'craft:notification {name}';
 
   /**
    * The full command description.
    *
    * @var string
    */
-  protected $help = 'This command allows you to create a http request';
+  protected $help = 'This command allows you to create a notification';
 
   /**
    * The descriptions of the console commands.
@@ -30,8 +30,8 @@ class MakeRequest extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:request' => 'Create a new http request',
-    'name' => 'The name of the request'
+    'craft:notification' => 'Create a new application event',
+    'name' => 'The name of the class'
   ];
 
   /**
@@ -45,10 +45,10 @@ class MakeRequest extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Request "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Notification "' . $name . '" has been successfuly created.</info>');
     }
 
-    return $output->writeln('Request "' . $name . '" already exists.');
+    return $output->writeln('Notification "' . $name . '" already exists.');
   }
 
   /**
@@ -60,29 +60,29 @@ class MakeRequest extends Command
    */
   private function add(string $name) : bool
   {
-    $requests = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Http' . DIRECTORY_SEPARATOR . 'Requests';
-    $request = $requests . DIRECTORY_SEPARATOR . $name . '.php';
+    $notifications = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Notifications';
+    $notification = $notifications . DIRECTORY_SEPARATOR . $name . '.php';
     $namespace = '';
 
     if (substr_count($name, '/') > 0) {
-      ModulusCLI::_dir(substr($request, 0, strrpos($request, DIRECTORY_SEPARATOR)));
+      ModulusCLI::_dir(substr($notification, 0, strrpos($notification, DIRECTORY_SEPARATOR)));
       $namespace = substr($name, 0, strrpos($name, DIRECTORY_SEPARATOR));
       $name = str_replace($namespace . DIRECTORY_SEPARATOR, '', $name);
 
       $namespace = '\\' . str_replace('/', '\\', $namespace);
     }
 
-    ModulusCLI::_dir($requests);
+    ModulusCLI::_dir($notifications);
 
-    $content = Template::asset('request_template');
-    $content = str_replace('{name}', $name, $content);
+    $content = Template::asset('notification_template');
+    $content = str_replace('{notification_name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 
-    if (file_exists($request)) {
+    if (file_exists($notification)) {
       return false;
     }
     else {
-      file_put_contents($request, $content);
+      file_put_contents($notification, $content);
       return true;
     }
   }

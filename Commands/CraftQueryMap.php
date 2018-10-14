@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeQueryMap extends Command
+class CraftQueryMap extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:querymap {name} {type}';
+  protected $signature = 'craft:querymap {name} {type}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeQueryMap extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:querymap' => 'Create a new query map',
+    'craft:querymap' => 'Create a new query map',
     'name' => 'The name of the class',
     'type' => 'Type of query map. <info>[options: "model", "group"]</info>'
   ];

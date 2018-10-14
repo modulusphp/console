@@ -8,21 +8,21 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeAbstract extends Command
+class CraftClass extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:abstract {name}';
+  protected $signature = 'craft:class {name}';
 
   /**
    * The full command description.
    *
    * @var string
    */
-  protected $help = 'This command allows you to create a Application abstract class';
+  protected $help = 'This command allows you to create a Application class';
 
   /**
    * The descriptions of the console commands.
@@ -30,8 +30,8 @@ class MakeAbstract extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:abstract' => 'Create a new application abstract class',
-    'name' => 'The name of the abstract class'
+    'craft:class' => 'Create a new application class',
+    'name' => 'The name of the class'
   ];
 
   /**
@@ -45,7 +45,7 @@ class MakeAbstract extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Abstract Class "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Class "' . $name . '" has been successfuly created.</info>');
     }
 
     return $output->writeln('File "' . $name . '" already exists.');
@@ -74,7 +74,7 @@ class MakeAbstract extends Command
 
     ModulusCLI::_dir($appdir);
 
-    $content = Template::asset('abstract_template');
+    $content = Template::asset('class_template');
     $content = str_replace('{name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 

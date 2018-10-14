@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeCommand extends Command
+class CraftCommand extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:command {name}';
+  protected $signature = 'craft:command {name}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeCommand extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:command' => 'Create a new modulus command',
+    'craft:command' => 'Create a new modulus command',
     'name' => 'The name of the new command'
   ];
 

@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeSeeder extends Command
+class CraftSeeder extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:seeder {name} {table=}';
+  protected $signature = 'craft:seeder {name} {table=}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeSeeder extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:seeder' => 'Create a new seeder class',
+    'craft:seeder' => 'Create a new seeder class',
     'name' => 'The name of the seeder',
     'table' => 'The name of the table, the seeder should run on'
   ];

@@ -8,21 +8,21 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeInterface extends Command
+class CraftRule extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:interface {name}';
+  protected $signature = 'craft:rule {name}';
 
   /**
    * The full command description.
    *
    * @var string
    */
-  protected $help = 'This command allows you to create a Application interface';
+  protected $help = 'This command allows you to create a Validation rule';
 
   /**
    * The descriptions of the console commands.
@@ -30,8 +30,8 @@ class MakeInterface extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:interface' => 'Create a new application interface',
-    'name' => 'The name of the interface'
+    'craft:rule' => 'Create a new validation rule',
+    'name' => 'The name of the class'
   ];
 
   /**
@@ -45,10 +45,10 @@ class MakeInterface extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Interface "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Rule "' . $name . '" has been successfuly created.</info>');
     }
 
-    return $output->writeln('File "' . $name . '" already exists.');
+    return $output->writeln('Rule "' . $name . '" already exists.');
   }
 
   /**
@@ -60,29 +60,29 @@ class MakeInterface extends Command
    */
   private function add(string $name) : bool
   {
-    $appdir = ModulusCLI::$appdir . 'app';
-    $app = $appdir . DIRECTORY_SEPARATOR . $name . '.php';
+    $rules = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Rules';
+    $rule = $rules . DIRECTORY_SEPARATOR . $name . '.php';
     $namespace = '';
 
     if (substr_count($name, '/') > 0) {
-      ModulusCLI::_dir(substr($app, 0, strrpos($app, DIRECTORY_SEPARATOR)));
+      ModulusCLI::_dir(substr($rule, 0, strrpos($rule, DIRECTORY_SEPARATOR)));
       $namespace = substr($name, 0, strrpos($name, DIRECTORY_SEPARATOR));
       $name = str_replace($namespace . DIRECTORY_SEPARATOR, '', $name);
 
       $namespace = '\\' . str_replace('/', '\\', $namespace);
     }
 
-    ModulusCLI::_dir($appdir);
+    ModulusCLI::_dir($rules);
 
-    $content = Template::asset('interface_template');
-    $content = str_replace('{name}', $name, $content);
+    $content = Template::asset('rule_template');
+    $content = str_replace('{rule_name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 
-    if (file_exists($app)) {
+    if (file_exists($rule)) {
       return false;
     }
     else {
-      file_put_contents($app, $content);
+      file_put_contents($rule, $content);
       return true;
     }
   }

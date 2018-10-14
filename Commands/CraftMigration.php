@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeMigration extends Command
+class CraftMigration extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:migration {name} {table=}';
+  protected $signature = 'craft:migration {name} {table=}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeMigration extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:migration' => 'Create a new migration class',
+    'craft:migration' => 'Create a new migration class',
     'name' => 'The name of the migration',
     'table' => 'The name of the table, the migration should be added to'
   ];
