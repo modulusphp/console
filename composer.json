@@ -12,7 +12,9 @@
   ],
   "require": {
     "atlantisphp/console": "^1.0",
-    "modulusphp/scaffolding": "^1.9.2",
+    "modulusphp/scaffolding": "^1.9.2"
+  },
+  "suggest": {
     "peppeocchi/php-cron-scheduler": "^2.3"
   },
   "autoload": {

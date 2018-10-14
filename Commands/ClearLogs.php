@@ -2,7 +2,6 @@
 
 namespace Modulus\Console\Commands;
 
-use Carbon\Carbon;
 use Modulus\Console\ModulusCLI;
 use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Command;

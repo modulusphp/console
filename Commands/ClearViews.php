@@ -5,8 +5,6 @@ namespace Modulus\Console\Commands;
 use Modulus\Console\ModulusCLI;
 use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Command;
-use Modulus\Scaffolding\Template;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
