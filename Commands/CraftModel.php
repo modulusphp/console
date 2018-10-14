@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeModel extends Command
+class CraftModel extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:model {name} {controller=}';
+  protected $signature = 'craft:model {name} {controller=}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeModel extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:model' => 'Create a new Eloquent model class',
+    'craft:model' => 'Create a new Eloquent model class',
     'name' => 'The name of the class',
     'controller' => 'Create a new controller for the model',
   ];

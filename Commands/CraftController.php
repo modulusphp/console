@@ -8,7 +8,7 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeController extends Command
+class CraftController extends Command
 {
   /**
    * $resource
@@ -22,7 +22,7 @@ class MakeController extends Command
    *
    * @var string
    */
-  protected $signature = 'make:controller {name} {model=} {resource=} ';
+  protected $signature = 'craft:controller {name} {model=} {resource=} ';
 
   /**
    * The full command description.
@@ -37,7 +37,7 @@ class MakeController extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:controller' => 'Create a new controller class',
+    'craft:controller' => 'Create a new controller class',
     'name' => 'The name of the class',
     'model' => 'Create a new model for the controller',
     'resource' => 'Generate a resource controller class',

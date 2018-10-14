@@ -8,21 +8,21 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeClass extends Command
+class CraftInterface extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:class {name}';
+  protected $signature = 'craft:interface {name}';
 
   /**
    * The full command description.
    *
    * @var string
    */
-  protected $help = 'This command allows you to create a Application class';
+  protected $help = 'This command allows you to create a Application interface';
 
   /**
    * The descriptions of the console commands.
@@ -30,8 +30,8 @@ class MakeClass extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:class' => 'Create a new application class',
-    'name' => 'The name of the class'
+    'craft:interface' => 'Create a new application interface',
+    'name' => 'The name of the interface'
   ];
 
   /**
@@ -45,7 +45,7 @@ class MakeClass extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Class "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Interface "' . $name . '" has been successfuly created.</info>');
     }
 
     return $output->writeln('File "' . $name . '" already exists.');
@@ -74,7 +74,7 @@ class MakeClass extends Command
 
     ModulusCLI::_dir($appdir);
 
-    $content = Template::asset('class_template');
+    $content = Template::asset('interface_template');
     $content = str_replace('{name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 

@@ -8,14 +8,14 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeTrait extends Command
+class CraftTrait extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'make:trait {name}';
+  protected $signature = 'craft:trait {name}';
 
   /**
    * The full command description.
@@ -30,7 +30,7 @@ class MakeTrait extends Command
    * @var array
    */
   protected $descriptions = [
-    'make:trait' => 'Create a new application trait',
+    'craft:trait' => 'Create a new application trait',
     'name' => 'The name of the trait'
   ];
 
