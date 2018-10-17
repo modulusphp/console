@@ -45,21 +45,11 @@ class RouteList extends Command
     $routes = array();
 
     foreach (Route::$routes as $key => $route) {
-      if ($route['file'] == 'web.php') {
-        $defaults = 'web';
-      }
-      else if ($route['file'] == 'api.php') {
-        $defaults = 'api';
-      }
-      else {
-        $defaults = '';
-      }
-
       if ($method == 'all') {
-        $middleware = $defaults . (count($route['middleware']) > 0 ? '|' : '') . implode('|', $route['middleware']);
+        $middleware = implode('|', $route['middleware']);
         array_push($routes, array(implode(',', $route['method']), $route['pattern'], $route['name'], is_string($route['callback']) ? $route['callback'] : '<comment>Closure</comment>', $middleware));
       } else if (str_contains(implode(' ', $route['method']), $method)) {
-        $middleware = $defaults . (count($route['middleware']) > 0 ? '|' : '') . implode('|', $route['middleware']);
+        $middleware = implode('|', $route['middleware']);
         array_push($routes, array(implode(',', $route['method']), $route['pattern'], $route['name'], is_string($route['callback']) ? $route['callback'] : '<comment>Closure</comment>', $middleware));
       }
     }
