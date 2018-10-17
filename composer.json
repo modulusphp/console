@@ -1,7 +1,7 @@
 {
   "name": "modulusphp/console",
   "description": "Directives for modulusPHP",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "license": "MIT",
   "type": "package",
   "authors": [
