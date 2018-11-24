@@ -5,6 +5,7 @@ namespace Modulus\Console;
 use Exception;
 use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Application;
+use Modulus\Framework\Application as App;
 
 class ModulusCLI
 {
@@ -66,7 +67,15 @@ class ModulusCLI
    */
   public static function boot() : object
   {
-    return new Application('modulusPHP Developer Environment', (new ModulusCLI)->getVersion());
+    ModulusCLI::$appdir = config('app.dir');
+    ModulusCLI::$approot = config('app.root');
+
+    $app = new Application('Modulus Craftsman', (new ModulusCLI)->getVersion());
+    $app->load(ModulusCLI::config());
+
+    Self::autoload_plugins(true, $app);
+
+    return $app;
   }
 
   /**
@@ -76,15 +85,40 @@ class ModulusCLI
    */
   public function getVersion()
   {
-    if (file_exists('composer.json')) {
-      $composer = json_decode(file_get_contents('composer.json', true));
+    $composerJson = config('app.dir') . 'composer.json';
+
+    if (file_exists($composerJson)) {
+      $composer = json_decode(file_get_contents($composerJson, true));
+
       $version  = isset($composer->version) ? $composer->version : '1';
       $require  = isset($composer->require) ? (array)$composer->require : false;
 
-      if (!$require) return "{$version} (1)";
-      if (isset($require['modulusphp/framework'])) return $version . " ({$require['modulusphp/framework']})";
+      if (!is_array($require)) return "{$version} (1)";
+
+      if (isset($require['modulusphp/framework'])) {
+        return $version . " ({$require['modulusphp/framework']})";
+      } else {
+        return "{$version} (1)";
+      }
     }
 
     return '1';
+  }
+
+  /**
+   * autoload_plugins
+   *
+   * @param bool $isConsole
+   * @return void
+   */
+  public static function autoload_plugins(bool $isConsole, $craftsman)
+  {
+    $plugins = config('app.plugins');
+
+    if (env('DEV_AUTOLOAD_PLUGINS') == true) {
+      foreach($plugins as $plugin => $class) {
+        $class::console((object)array_merge(App::prototype($isConsole), ['craftsman' => $craftsman]));
+      }
+    }
   }
 }
