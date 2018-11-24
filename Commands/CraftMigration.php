@@ -50,24 +50,25 @@ class CraftMigration extends Command
 
     if ($table == null || $table == '') {
       if ($this->add($name, $class)) {
-        return $output->writeln('<info>Migration "' . $class . '" has been successfuly created.</info>');
+        return $output->writeln('<info>Migration "' . $class . '" has been successfully created.</info>');
       }
 
       return $output->writeln('Migration "' . $class . '" already exists.');
     }
 
     if ($this->add($name, $class, $table)) {
-      return $output->writeln('<info>Migration "' . $class . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Migration "' . $class . '" has been successfully created.</info>');
     }
 
     return $output->writeln('Migration "' . $class . '" already exists.');
   }
 
   /**
-   * Add new command
+   * Add asset
    *
    * @param  string  $name
    * @param  string  $class
+   * @param  string|null $table
    * @return boolean
    */
   private function add(string $name, string $class, string $table = null) : bool
@@ -98,5 +99,4 @@ class CraftMigration extends Command
       return true;
     }
   }
-
 }

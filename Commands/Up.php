@@ -55,5 +55,4 @@ class Up extends Command
 
     $output->writeln('Failed to put application in maintenance mode.');
   }
-
 }

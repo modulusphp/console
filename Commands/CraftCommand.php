@@ -30,7 +30,7 @@ class CraftCommand extends Command
    * @var array
    */
   protected $descriptions = [
-    'craft:command' => 'Create a new modulus command',
+    'craft:command' => 'Create a new Craftsman command',
     'name' => 'The name of the new command'
   ];
 
@@ -46,7 +46,7 @@ class CraftCommand extends Command
     $class = implode('', array_map('ucfirst', explode('_', str_replace(':', '_', $name))));
 
     if ($this->add($name, $class)) {
-      return $output->writeln('<info>Command "' . $class . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Command "' . $class . '" has been successfully created.</info>');
     }
 
     return $output->writeln('Command "' . $class . '" already exists.');
@@ -79,5 +79,4 @@ class CraftCommand extends Command
       return true;
     }
   }
-
 }

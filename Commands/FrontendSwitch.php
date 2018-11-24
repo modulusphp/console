@@ -75,5 +75,4 @@ class FrontendSwitch extends Command
       return $output->writeln("<info>Successfully swicthed to \"{$frontend}\"</info>");
     }
   }
-
 }

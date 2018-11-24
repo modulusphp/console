@@ -2,7 +2,7 @@
 
 namespace Modulus\Console\Commands;
 
-use App\Console\Scheduler;
+use App\Console\Kernel;
 use GO\Scheduler as Runner;
 use AtlantisPHP\Console\Command;
 use Modulus\System\Scheduler as SystemScheduler;
@@ -43,12 +43,31 @@ class Schedule extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $scheduler = new Runner();
-    $schedule = new Scheduler();
+    $schedule = new Kernel();
     $schedule->run($scheduler);
 
     // run application commands
     (new SystemScheduler)->run($scheduler);
 
+    $this->autoload_plugins($scheduler);
+
     $scheduler->run();
+  }
+
+  /**
+   * autoload_plugins
+   *
+   * @param mixed $scheduler
+   * @return void
+   */
+  private function autoload_plugins($scheduler)
+  {
+    if (env('DEV_AUTOLOAD_PLUGINS') == true) {
+      $plugins = config('app.plugins');
+
+      foreach($plugins as $plugin => $class) {
+        $class::schedule($scheduler);
+      }
+    }
   }
 }

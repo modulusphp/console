@@ -2,8 +2,8 @@
 
 namespace Modulus\Console\Commands;
 
-use AtlantisPHP\Console\Command;
 use Modulus\Console\ModulusCLI;
+use AtlantisPHP\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -47,9 +47,7 @@ class Serve extends Command
       return $output->writeln('Invalid port number');
     }
 
-    $output->writeln('<info>Started modulusPHP Development Serve.</info>');
-    $output->writeln('['.date('D M d G:i:s Y').'] Listening on http://localhost:' . $port);
-    $output->writeln('Press Ctrl-C to quit.');
+    $output->writeln("<info>Running Modulus application on</info> http://localhost:{$port}");
 
     $cmd = passthru('php -S localhost:' . $port . ' -t ' . ModulusCLI::$appdir . DIRECTORY_SEPARATOR . ModulusCLI::$approot);
     $output->writeln($cmd);

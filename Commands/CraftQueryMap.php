@@ -51,7 +51,7 @@ class CraftQueryMap extends Command
     }
 
     if ($this->add($name, $type)) {
-      return $output->writeln('<info>Query Map "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Query Map "' . $name . '" has been successfully created.</info>');
     }
 
     return $output->writeln('Query Map "' . $name . '" already exists.');
@@ -61,7 +61,7 @@ class CraftQueryMap extends Command
    * Add new command
    *
    * @param  string  $name
-   * @param  string  $class
+   * @param  string  $type
    * @return boolean
    */
   private function add(string $name, string $type) : bool
@@ -95,5 +95,4 @@ class CraftQueryMap extends Command
       return true;
     }
   }
-
 }

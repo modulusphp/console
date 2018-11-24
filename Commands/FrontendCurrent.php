@@ -58,5 +58,4 @@ class FrontendCurrent extends Command
 
     $output->writeln("unknown");
   }
-
 }

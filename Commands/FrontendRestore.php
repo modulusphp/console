@@ -86,5 +86,4 @@ class FrontendRestore extends Command
 
     $output->writeln("Could not restore \"{$input->getArgument('backup')}\".");
   }
-
 }

@@ -58,7 +58,7 @@ class CraftController extends Command
 
     if ($model == null || $model == '') {
       if ($this->add($controller, 'controller') == true) {
-        return $output->writeln('<info>Controller "' . $controller . '" has been successfuly created.</info>');
+        return $output->writeln('<info>Controller "' . $controller . '" has been successfully created.</info>');
       }
 
       return $output->writeln('Controller "' . $controller . '" already exists.');
@@ -72,15 +72,16 @@ class CraftController extends Command
     else {
       $this->add($controller, 'controller');
       $this->add($model, 'model');
-      return $output->writeln('<info>Controller "' . $controller . '" has been successfuly created with Model "' . $model . '".</info>');
+      return $output->writeln('<info>Controller "' . $controller . '" has been successfully created with Model "' . $model . '".</info>');
     }
   }
 
   /**
-   * Add new command
+   * Add asset
    *
    * @param  string  $name
-   * @param  string  $class
+   * @param  string  $type
+   * @param  boolean $verify
    * @return boolean
    */
   private function add(string $name, string $type, bool $verify = false) : bool

@@ -42,5 +42,4 @@ class Shell extends Command
   {
     (new PyShell)->run();
   }
-
 }
