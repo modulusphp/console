@@ -69,5 +69,4 @@ class StorageLink extends Command
   {
     return substr($dest, 0, 1) == DIRECTORY_SEPARATOR ? substr($dest, 1) : $dest;
   }
-
 }

@@ -91,5 +91,4 @@ class CraftTest extends Command
       return true;
     }
   }
-
 }

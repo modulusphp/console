@@ -49,17 +49,18 @@ class CraftSeeder extends Command
     $class = implode('', array_map('ucfirst', explode('_', $name)));
 
     if ($this->add($name, $class, $table)) {
-      return $output->writeln('<info>Seeder "' . $class . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Seeder "' . $class . '" has been successfully created.</info>');
     }
 
     return $output->writeln('Seeder "' . $class . '" already exists.');
   }
 
   /**
-   * Add new command
+   * Add asset
    *
    * @param  string  $name
    * @param  string  $class
+   * @param  string  $table
    * @return boolean
    */
   private function add(string $name, string $class, string $table = null) : bool
@@ -81,5 +82,4 @@ class CraftSeeder extends Command
       return true;
     }
   }
-
 }

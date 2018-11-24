@@ -2,6 +2,7 @@
 
 namespace Modulus\Console\Commands;
 
+use Modulus\Support\Config;
 use Modulus\Console\ModulusCLI;
 use Modulus\Support\Filesystem;
 use AtlantisPHP\Console\Command;
@@ -41,10 +42,9 @@ class ClearViews extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-    $searchDir = ModulusCLI::$appdir . 'storage' . DIRECTORY_SEPARATOR . 'framework' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
+    $searchDir = Config::get('app.dir') . (substr(Config::get('view.compiled'), 0, 1) == DIRECTORY_SEPARATOR ? substr(Config::get('view.compiled'), 1) : Config::get('view.compiled')) . DIRECTORY_SEPARATOR;
     $extension = config('view.extension');
-
-    $views = glob($searchDir . '*@*' . $extension);
+    $views     = glob($searchDir . '*@*' . $extension);
 
     if (count($views) < 1) {
       return $output->writeln('Nothing to remove');

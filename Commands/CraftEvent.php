@@ -45,17 +45,16 @@ class CraftEvent extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Event "' . $name . '" has been successfuly created.</info>');
+      return $output->writeln('<info>Event "' . $name . '" has been successfully created.</info>');
     }
 
     return $output->writeln('Event "' . $name . '" already exists.');
   }
 
   /**
-   * Add new command
+   * Add asset
    *
    * @param  string  $name
-   * @param  string  $class
    * @return boolean
    */
   private function add(string $name) : bool
@@ -86,5 +85,4 @@ class CraftEvent extends Command
       return true;
     }
   }
-
 }
