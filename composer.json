@@ -1,7 +1,7 @@
 {
   "name": "modulusphp/console",
   "description": "Modulus Commands",
-  "version": "1.9.6",
+  "version": "1.9.6.1",
   "license": "MIT",
   "type": "package",
   "authors": [{
@@ -9,9 +9,9 @@
     "email": "donaldpakkies@gmail.com"
   }],
   "require": {
-    "atlantisphp/console": "^1.1",
-    "modulusphp/support": "^1.9.2",
-    "modulusphp/scaffolding": "^1.9.2",
+    "atlantisphp/console": "1.1",
+    "modulusphp/support": "1.9.*",
+    "modulusphp/scaffolding": "1.9.*",
     "peppeocchi/php-cron-scheduler": "^2.3",
     "psy/psysh": "@stable"
   },
