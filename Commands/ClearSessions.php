@@ -57,6 +57,6 @@ class ClearSessions extends Command
       }
     }
 
-    return $output->writeln('<info>Cleared sesseions</info>');
+    return $output->writeln('<info>Cleared sessions</info>');
   }
 }
