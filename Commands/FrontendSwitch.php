@@ -46,6 +46,7 @@ class FrontendSwitch extends Command
     $current  = ModulusCLI::$appdir . 'resources';
     $package  = ModulusCLI::$appdir . 'package.json';
     $lock     = ModulusCLI::$appdir . 'package-lock.json';
+    $webpack  = ModulusCLI::$appdir . 'webpack.mix.js';
     $front    = Template::assets() . 'frontend';
 
     $helper = $this->getHelper('question');
@@ -69,8 +70,13 @@ class FrontendSwitch extends Command
         Filesystem::delete($lock);
       }
 
+      if (file_exists($webpack)) {
+        Filesystem::delete($webpack);
+      }
+
       Filesystem::copy($front . DIRECTORY_SEPARATOR . $frontend . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'js', $current . DIRECTORY_SEPARATOR .'js');
       Filesystem::copy($front . DIRECTORY_SEPARATOR . $frontend . DIRECTORY_SEPARATOR . 'package.json', $package);
+      Filesystem::copy($front . DIRECTORY_SEPARATOR . $frontend . DIRECTORY_SEPARATOR . 'webpack.mix.js', $webpack);
 
       return $output->writeln("<info>Successfully swicthed to \"{$frontend}\"</info>");
     }
