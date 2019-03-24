@@ -18,7 +18,7 @@ class Seed extends Command
    *
    * @var string
    */
-  protected $signature = 'seed {name} {count=10}';
+  protected $signature = 'seed {name} {count=} {locale=}';
 
   /**
    * The full command description.
@@ -35,7 +35,8 @@ class Seed extends Command
   protected $descriptions = [
     'seed' => 'Run a seed',
     'name' => 'The name of the seed',
-    'count' => 'The number of rows, the seed will create'
+    'count' => 'The number of rows, the seed will create',
+    'locale' => 'The default locale'
   ];
 
   /**
@@ -46,8 +47,19 @@ class Seed extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-    $name  = strtolower($input->getArgument('name'));
-    $count = (int)$input->getOption('count');
+    $name   = strtolower($input->getArgument('name'));
+    $count  = (!in_array((int)$input->getOption('count'), ['', null]) ? (int)$input->getOption('count') : null);
+    $locale = (!in_array($input->getOption('locale'), ['', null]) ? $input->getOption('locale') : null);
+
+    /**
+     * Check if locale is supported before proceeding
+     */
+    if (
+      $locale &&
+      !in_array($locale, (is_array(config('faker.locale.supported')) ? config('faker.locale.supported') : []))
+    ) {
+      return $output->writeln('<info>Locale "'. $locale .'" is not supported.</info>');
+    }
 
     $seeds = ModulusCLI::$appdir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'seeds' . DIRECTORY_SEPARATOR;
 
@@ -55,21 +67,23 @@ class Seed extends Command
 
     if (file_exists($seed)) {
 
-      if (!is_int($count)) return $output->writeln('<error>"'.$count.'" is not a real number</error>');
+      if ($count !== null && !is_int($count)) return $output->writeln('<error>"'.$count.'" is not a real number</error>');
 
       require $seed;
 
       $className = $this->className(substr($name, strrpos($name, '/')));
 
       if (class_exists($className)) {
+        $seed = new $className;
+        $seed->count  = ($count ?? $seed->count);
+        $seed->locale = ($locale ?? $seed->locale);
+
         ProgressBar::setFormatDefinition('count', 'Processing: %current%/%max%.');
 
-        $progressBar = new ProgressBar($output, $count);
+        $progressBar = new ProgressBar($output, $seed->count);
         $progressBar->setFormat('count');
         $progressBar->start();
 
-        $seed = new $className;
-        $seed->count = $count;
         $results = $seed->run($progressBar);
 
         if (!$results) {
