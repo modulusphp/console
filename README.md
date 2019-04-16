@@ -5,7 +5,7 @@ This package contains Modulus console commands.
 ### Available Commands
 
 | Command              | Description                                                          |
-|----------------------|----------------------------------------------------------------------|
+|:---------------------|:---------------------------------------------------------------------|
 | `down`               | Put the application into maintenance mode                            |
 | `help`               | Displays help for a command                                          |
 | `list`               | Lists commands                                                       |
