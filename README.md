@@ -43,6 +43,11 @@ This package contains Modulus console commands.
 | `frontend:restore`   | Restore a backup                                                     |
 | `frontend:switch`    | Change Frontend framework                                            |
 | `key:generate`       | Set the application key                                              |
+| `plugin:install`     | Verify and install a new plugin                                      |
+| `queue:dispatch`     | Process a single job                                                 |
+| `queue:listen`       | Listen to a given queue                                              |
+| `queue:table`        | Create a migration for the queue jobs database table                 |
+| `queue:work`         | Start processing jobs on the queue                                   |
 | `route:list`         | List all registered routes                                           |
 | `schedule:run`       | Run the scheduled commands                                           |
 | `storage:link`       | Create a symbolic link from "public/storage" to "storage/app/public" |
