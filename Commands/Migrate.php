@@ -50,13 +50,12 @@ class Migrate extends Command
 
     $migrationFile = ModulusCLI::$appdir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR . '0000_00_00_00_00_00_migrations.php';
 
-    require $migrationFile;
-
     if (Capsule::schema()->hasTable('migrations') == false) {
       if (file_exists($migrationFile)) {
-        call_user_func(['Migrations', 'up']);
-      }
-      else {
+        require $migrationFile;
+
+        (new \Migrations)->run(true);
+      } else {
         return $output->writeln('<error>The migrations file is missing</error>');
       }
     }
@@ -130,7 +129,7 @@ class Migrate extends Command
     if (strtolower($action == 'drop' ? 'down' : $action) == 'down') {
       if ($migration != null) {
         try {
-          call_user_func([$name, 'down']);
+          (new $name)->run(false);
         }
         catch (Exception $e) {
           Log::error($e);
@@ -147,7 +146,7 @@ class Migrate extends Command
     else if (strtolower($action) == 'up'){
       if ($migration == null) {
         try {
-          call_user_func([$name, 'up']);
+          (new $name)->run(true);
         }
         catch (Exception $e) {
           Log::error($e);
