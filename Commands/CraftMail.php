@@ -8,21 +8,21 @@ use Modulus\Scaffolding\Template;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CraftNotification extends Command
+class CraftMail extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'craft:notification {name}';
+  protected $signature = 'craft:mail {name}';
 
   /**
    * The full command description.
    *
    * @var string
    */
-  protected $help = 'This command allows you to create a notification';
+  protected $help = 'This command allows you to create a mail';
 
   /**
    * The descriptions of the console commands.
@@ -30,7 +30,7 @@ class CraftNotification extends Command
    * @var array
    */
   protected $descriptions = [
-    'craft:notification' => 'Create a new notification',
+    'craft:mail' => 'Create a new mail',
     'name' => 'The name of the class'
   ];
 
@@ -45,10 +45,10 @@ class CraftNotification extends Command
     $name = $input->getArgument('name');
 
     if ($this->add($name)) {
-      return $output->writeln('<info>Notification "' . $name . '" has been successfully created.</info>');
+      return $output->writeln('<info>Mail "' . $name . '" has been successfully created.</info>');
     }
 
-    return $output->writeln('Notification "' . $name . '" already exists.');
+    return $output->writeln('Mail "' . $name . '" already exists.');
   }
 
   /**
@@ -59,7 +59,7 @@ class CraftNotification extends Command
    */
   private function add(string $name) : bool
   {
-    $notifications = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Notifications';
+    $notifications = ModulusCLI::$appdir . 'app' . DIRECTORY_SEPARATOR . 'Mail';
     $notification = $notifications . DIRECTORY_SEPARATOR . $name . '.php';
     $namespace = '';
 
@@ -73,16 +73,13 @@ class CraftNotification extends Command
 
     ModulusCLI::_dir($notifications);
 
-    $content = Template::asset('notification_template');
-    $content = str_replace('{notification_name}', $name, $content);
+    $content = Template::asset('mail_template');
+    $content = str_replace('{mail_name}', $name, $content);
     $content = str_replace('{namespace}', $namespace, $content);
 
-    if (file_exists($notification)) {
-      return false;
-    }
-    else {
-      file_put_contents($notification, $content);
-      return true;
-    }
+    if (file_exists($notification)) return false;
+
+    file_put_contents($notification, $content);
+    return true;
   }
 }
