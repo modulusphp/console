@@ -30,7 +30,7 @@ class CraftNotification extends Command
    * @var array
    */
   protected $descriptions = [
-    'craft:notification' => 'Create a new application event',
+    'craft:notification' => 'Create a new notification',
     'name' => 'The name of the class'
   ];
 
