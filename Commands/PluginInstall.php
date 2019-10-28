@@ -60,10 +60,11 @@ class PluginInstall extends Command
 
     $pluginInfo = $this->getInfo($plugin);
 
-    if (Validate::check($plugin, $pluginInfo)) {
+    $package    = $plugin::PACKAGE;
 
-      $package = $plugin::PACKAGE;
-      $version = $plugin::VERSION;
+    $version    = $plugin::VERSION;
+
+    if (Validate::check($plugin, $pluginInfo)) {
 
       if (config('app.plugins') && in_array($pluginInfo->name, config('app.plugins'))) {
         return $output->writeln("<error>{$package} is a registered plugin. Aborting...</error>");

@@ -1,7 +1,7 @@
 {
   "name": "modulusphp/console",
   "description": "Modulus Commands",
-  "version": "1.9.6.6",
+  "version": "1.9.6.7",
   "license": "MIT",
   "type": "package",
   "authors": [{
